@@ -1,5 +1,5 @@
 AZURE_LOCATION: 'westeurope'
-RESOURCE_NAME_PREFIX: 'apimdemovro99'
+RESOURCE_NAME_PREFIX: 'viro'
 ENVIRONMENT_TAG: 'dev'
 DEPLOYMENT_NAME: 'ase-demo'
 VM_USERNAME: 'virouet'
