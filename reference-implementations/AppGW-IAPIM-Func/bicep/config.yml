@@ -1,7 +1,7 @@
 AZURE_LOCATION: 'westeurope'
 RESOURCE_NAME_PREFIX: 'apimdemovro99'
 ENVIRONMENT_TAG: 'dev'
-DEPLOYMENT_NAME: 'ase-demo-deployvro99'
+DEPLOYMENT_NAME: 'ase-demo-dep99'
 VM_USERNAME: 'virouet'
 ACCOUNT_NAME: 'github.com/namtazpro'
 CICD_AGENT_TYPE: 'github'
