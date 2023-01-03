@@ -96,6 +96,20 @@ resource appGatewayName_resource 'Microsoft.Network/applicationGateways@2019-09-
         }
       }
     ]
+    sslPolicy: {
+      minProtocolVersion: 'TLSv1_2'
+      policyType: 'Custom'
+      cipherSuites: [        
+         'TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256'
+         'TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384'
+         'TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256'
+         'TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384'
+         'TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256'
+         'TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384'
+         'TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256'
+         'TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384'
+      ]      
+    }    
     trustedRootCertificates: []
     frontendIPConfigurations: [
       {
@@ -156,7 +170,7 @@ resource appGatewayName_resource 'Microsoft.Network/applicationGateways@2019-09-
           pickHostNameFromBackendAddress: false
           requestTimeout: 20
           probe: {
-            id: '${resourceId('Microsoft.Network/applicationGateways', appGatewayName)}/probes/APIM'
+            id: resourceId('Microsoft.Network/applicationGateways/probes', appGatewayName, 'APIM')
           }
         }
       }
@@ -166,10 +180,10 @@ resource appGatewayName_resource 'Microsoft.Network/applicationGateways@2019-09-
         name: 'default'
         properties: {
           frontendIPConfiguration: {
-            id: '${resourceId('Microsoft.Network/applicationGateways', appGatewayName)}/frontendIPConfigurations/appGwPublicFrontendIp'
+            id: resourceId('Microsoft.Network/applicationGateways/frontendIPConfigurations', appGatewayName, 'appGwPublicFrontendIp')
           }
           frontendPort: {
-            id: '${resourceId('Microsoft.Network/applicationGateways', appGatewayName)}/frontendPorts/port_80'
+            id: resourceId('Microsoft.Network/applicationGateways/frontendPorts', appGatewayName, 'port_80')
           }
           protocol: 'Http'
           hostnames: []
@@ -180,14 +194,14 @@ resource appGatewayName_resource 'Microsoft.Network/applicationGateways@2019-09-
         name: 'https'
         properties: {
           frontendIPConfiguration: {
-            id: '${resourceId('Microsoft.Network/applicationGateways', appGatewayName)}/frontendIPConfigurations/appGwPublicFrontendIp'
+            id: resourceId('Microsoft.Network/applicationGateways/frontendIPConfigurations', appGatewayName, 'appGwPublicFrontendIp')
           }
           frontendPort: {
-            id: '${resourceId('Microsoft.Network/applicationGateways', appGatewayName)}/frontendPorts/port_443'
+            id: resourceId('Microsoft.Network/applicationGateways/frontendPorts', appGatewayName, 'port_443')
           }
           protocol: 'Https'
           sslCertificate: {
-            id: '${resourceId('Microsoft.Network/applicationGateways', appGatewayName)}/sslCertificates/${appGatewayFQDN}'
+            id: resourceId('Microsoft.Network/applicationGateways/sslCertificates', appGatewayName, appGatewayFQDN)
           }
           hostnames: []
           requireServerNameIndication: false
@@ -201,13 +215,13 @@ resource appGatewayName_resource 'Microsoft.Network/applicationGateways@2019-09-
         properties: {
           ruleType: 'Basic'
           httpListener: {
-            id: '${resourceId('Microsoft.Network/applicationGateways', appGatewayName)}/httpListeners/https'
+            id: resourceId('Microsoft.Network/applicationGateways/httpListeners', appGatewayName, 'https')
           }
           backendAddressPool: {
-            id: '${resourceId('Microsoft.Network/applicationGateways', appGatewayName)}/backendAddressPools/apim'
+            id: resourceId('Microsoft.Network/applicationGateways/backendAddressPools', appGatewayName, 'apim')
           }
           backendHttpSettings: {
-            id: '${resourceId('Microsoft.Network/applicationGateways', appGatewayName)}/backendHttpSettingsCollection/https'
+            id: resourceId('Microsoft.Network/applicationGateways/backendHttpSettingsCollection', appGatewayName, 'https')
           }
         }
       }
